@@ -1,4 +1,6 @@
 require("dotenv").config();
+console.log("Database URL:", process.env.DATABASE_URL); // Debugging
+console.log("Email User:", process.env.EMAIL_USER); // Debugging
 const express = require("express");
 const cors = require("cors");
 const { PrismaClient } = require("@prisma/client");
