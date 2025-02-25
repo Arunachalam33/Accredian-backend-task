@@ -10,7 +10,7 @@ app.use(cors());
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.send("API is running...");
+  res.json({ message: "API is running..." });
 });
 
 app.post("/refer", async (req, res) => {
