@@ -14,12 +14,23 @@ const ReferModal = ({ open, onClose }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
-    onClose(); // Close modal after submission
+    try {
+      const response = await fetch("http://localhost:5000/refer", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+  
+      const result = await response.json();
+      alert(result.message);
+      onClose();
+    } catch (error) {
+      console.error("Error submitting referral:", error);
+    }
   };
-
+  
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>Refer a Friend</DialogTitle>
