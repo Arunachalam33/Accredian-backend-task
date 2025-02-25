@@ -9,16 +9,18 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
 model Referral {
-  id        Int    @id @default(autoincrement())
-  referrerName String
-  referrerEmail String @unique
-  refereeName String
-  refereeEmail String
-  message String
-  createdAt DateTime @default(now())
+  id             Int    @id @default(autoincrement())
+  referrerName   String
+  referrerEmail  String
+  refereeName    String
+  refereeEmail   String
+  message        String?
+  
+  @@unique([referrerEmail, refereeEmail]) // Unique constraint on emails
 }
 

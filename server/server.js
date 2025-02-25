@@ -9,10 +9,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.send("API is running...");
-});
-
 app.post("/refer", async (req, res) => {
   const { referrerName, referrerEmail, refereeName, refereeEmail, message } = req.body;
 
@@ -45,18 +41,10 @@ app.post("/refer", async (req, res) => {
 
     res.json({ message: "Referral submitted successfully!", data: newReferral });
   } catch (error) {
-    if (error.code === "P2002") {
-      res.status(400).json({ error: "This referral already exists!" });
-    } else {
-      console.error(error);
-      res.status(500).json({ error: "Server error" });
-    }
+    console.error(error);
+    res.status(500).json({ error: "Server error" });
   }
 });
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-
-
-
-
